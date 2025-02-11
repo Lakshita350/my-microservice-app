@@ -1,0 +1,44 @@
+To connect the microservices on the two VMs, you need to configure VM networking:
+
+    Get the IP Address of VM1:
+    Run this on VM1:
+
+ifconfig   # Or `ip a` to get the IP address (e.g., 192.168.1.10)
+
+Access the Microservice from VM2:
+Modify the service in VM2 to call VM1’s microservice using its IP address:
+
+    import requests
+    response = requests.get('http://192.168.1.10:8081')
+    print(response.text)
+
+    Firewall and Port Configuration:
+    Ensure ports 8081 and 8082 are open on both VMs.
+
+5. Deployment Steps on Each VM
+
+    SSH into each VM.
+
+    Clone the repository:
+
+git clone https://github.com/your-username/my-microservice-app.git
+cd my-microservice-app/deployment/vm1
+
+Build and run the Docker containers:
+
+    docker-compose up --build -d
+
+    Repeat the same for VM2 with the appropriate docker-compose.yml.
+
+6. Sample Communication Between VMs
+
+Once deployed, you can access the services:
+
+    VM1: http://<VM1-IP>:8081
+    VM2: http://<VM2-IP>:8082
+
+Example request from VM1 to VM2:
+
+response = requests.get('http://<VM2-IP>:8082')
+print(response.text)
+
