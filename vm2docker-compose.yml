@@ -1,0 +1,12 @@
+version: '3'
+services:
+  microservice2:
+    build: ../microservice
+    ports:
+      - "8082:8080"   # Exposing the service on port 8082
+    networks:
+      - microservice-network
+
+networks:
+  microservice-network:
+    driver: bridge
